@@ -14,21 +14,21 @@ from radio import (
 
 
 class Maqueen:
-  """Maqueen class for using Maqueen robot"""
+"""Maqueen class for using Maqueen robot"""
 
-  def set_motor(self, motor: str = "all", speed: int = 255, foward: bool = True):
+def set_motor(self, motor: str = "all", speed: int = 255, foward: bool = True):
     if foward:
-      sens = 0x0
+    sens = 0x0
     else:
-      sens = 0x1
+    sens = 0x1
     
     if motor == "left":
-      i2c.write(0x10, bytearray([0x00, sens, speed]))
+    i2c.write(0x10, bytearray([0x00, sens, speed]))
     elif motor == "right":
-      i2c.write(0x10, bytearray([0x02, sens, speed]))
+    i2c.write(0x10, bytearray([0x02, sens, speed]))
     elif motor == "all":
-      i2c.write(0x10, bytearray([0x00, sens, speed]))
-      i2c.write(0x10, bytearray([0x02, sens, speed]))
+    i2c.write(0x10, bytearray([0x00, sens, speed]))
+    i2c.write(0x10, bytearray([0x02, sens, speed]))
   
   def get_distance(self) -> float:
     # Send a sound wave
