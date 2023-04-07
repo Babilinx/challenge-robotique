@@ -23,6 +23,8 @@ class Maqueen:
             motor (str, optional): Select the motor to use. Defaults to "all".
             speed (int, optional): Select the speed of the choosen motor (between 0 and 255). Defaults to 255.
             foward (bool, optional): Select the way that the motos should spin. False to backward. Defaults to True.
+
+        Status: Working
         """
 
         if foward:
@@ -43,6 +45,8 @@ class Maqueen:
 
         Returns:
             float: Distance un centimeters
+
+        Status: Working
         """
 
         # Send a sound wave
@@ -62,6 +66,8 @@ class Maqueen:
 
         Returns:
             str: Tell with sensor was triggered
+
+        Status: Working
         """
 
         if pin13.read_digital():
@@ -73,13 +79,17 @@ class Maqueen:
 
     def stop(self):
         """Stop all of the motors.
+
+        Status: Not tested
         """
 
         i2c.write(0x10, bytearray([0x02, 0x0, 0]))
         i2c.write(0x10, bytearray([0x00, 0x0, 0]))
-    
+
     def follow_line(self):
         """Flollow a black line on white background.
+
+        Status: Working in theory, but don't follow a black line
         """
 
         patrol = self.get_pratol()
@@ -106,6 +116,8 @@ class Radio:
 
         Args:
             message (str): Message to send.
+
+        Status: Not tested
         """
 
         send(message)
@@ -116,6 +128,8 @@ class Radio:
 
         Returns:
             str: Received message.
+
+        Status: Not tested
         """
 
         message = receive()
