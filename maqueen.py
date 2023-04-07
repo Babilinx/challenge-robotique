@@ -66,8 +66,10 @@ class Maqueen:
 
         if pin13.read_digital():
             return "left"
-        if pin14.read_digital():
+        elif pin14.read_digital():
             return "right"
+        else:
+            return "none"
 
     def stop(self):
         """Stop all of the motors.
@@ -75,6 +77,19 @@ class Maqueen:
 
         i2c.write(0x10, bytearray([0x02, 0x0, 0]))
         i2c.write(0x10, bytearray([0x00, 0x0, 0]))
+    
+    def follow_line(self):
+        """Flollow a black line on white background.
+        """
+
+        patrol = self.get_pratol()
+
+        if patrol == "left":
+            self.set_motor(motor="left", speed=20)
+        elif patrol == "right":
+            self.set_motor(motor="right", speed=20)
+        elif patrol == "none":
+            self.set_motor()
 
 
 class Radio:
