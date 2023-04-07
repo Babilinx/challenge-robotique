@@ -1,7 +1,16 @@
-from microbit import (i2c,
+from microbit import (
+  i2c,
   pin1, pin2, pin13, pin14,
-  sleep)
+  sleep
+  )
 from machine import time_pulse_us
+from radio import (
+  config,
+  send,
+  receive,
+  on,
+#  off,
+  )
 
 
 class Maqueen:
@@ -43,3 +52,19 @@ class Maqueen:
   def stop(self):
     i2c.write(0x10, bytearray([0x02, 0x0, 0]))
     i2c.write(0x10, bytearray([0x00, 0x0, 0]))
+
+class Radio:
+
+  def __init__(self, channel: int,  power: int = 7):
+    config(channel=channel, power=power)
+    on()
+    print("Radio: Config radio on channel {} and power {}".format(channel, power))
+  
+  def send(self, message: str):
+    send(message)
+    print("Radio: Send message {}".format(message))
+
+  def receive(self) -> str:
+    message = receive()
+    print("Radio: Recieve {}".format(message))
+    return message
