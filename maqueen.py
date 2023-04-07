@@ -1,6 +1,6 @@
-from microbit import i2c,
-  pin1, pin13, pin14,
-  sleep, machine
+from microbit import (i2c,
+  pin1, pin2, pin13, pin14,
+  sleep, machine)
 
 
 class Maqueen:
@@ -12,11 +12,11 @@ class Maqueen:
     else:
       sens = 0x1
     
-    if motor = "left":
+    if motor == "left":
       i2c.write(0x10, bytearray([0x00, sens, speed]))
-    elif motor = "right":
+    elif motor == "right":
       i2c.write(0x10, bytearray([0x02, sens, speed]))
-    elif motor = "all":
+    elif motor == "all":
       i2c.write(0x10, bytearray([0x00, sens, speed]))
       i2c.write(0x10, bytearray([0x02, sens, speed]))
   
