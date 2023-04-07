@@ -1,6 +1,7 @@
 from microbit import (i2c,
   pin1, pin2, pin13, pin14,
-  sleep, machine)
+  sleep)
+from machine import time_pulse_us
 
 
 class Maqueen:
@@ -27,7 +28,7 @@ class Maqueen:
     pin1.write_digital(0)
     
     pin2.read_digital()
-    time = machine.time_pulse_us(pin2, 1)
+    time = time_pulse_us(pin2, 1)
     
     distance = 340 * time / 20000
     
