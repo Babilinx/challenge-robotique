@@ -1,22 +1,12 @@
-from microbit import (
-    i2c,
-    pin1, pin2, pin13, pin14,
-    sleep
-)
+from microbit import (i2c, pin1, pin2, pin13, pin14, sleep)
 from machine import time_pulse_us
-from radio import (
-    config,
-    send,
-    receive,
-    on,
-    # off,
-)
+from radio import config, send, receive, on
 
 
 class Maqueen:
     """Maqueen class for using Maqueen robot"""
 
-    def set_motor(self, motor: str = "all", speed: int = 255, foward: bool = True):
+    def set_motor(self, motor: str = 'all', speed: int = 255, foward: bool = True):
         """Handle motors usage.
 
         Args:
@@ -32,11 +22,11 @@ class Maqueen:
         else:
             sens = 0x1
 
-        if motor == "left":
+        if motor == 'left':
             i2c.write(0x10, bytearray([0x00, sens, speed]))
-        elif motor == "right":
+        elif motor == 'right':
             i2c.write(0x10, bytearray([0x02, sens, speed]))
-        elif motor == "all":
+        elif motor == 'all':
             i2c.write(0x10, bytearray([0x00, sens, speed]))
             i2c.write(0x10, bytearray([0x02, sens, speed]))
 
@@ -71,11 +61,11 @@ class Maqueen:
         """
 
         if pin13.read_digital():
-            return "left"
+            return 'left'
         elif pin14.read_digital():
-            return "right"
+            return 'right'
         else:
-            return "none"
+            return 'none'
 
     def stop(self):
         """Stop all of the motors.
@@ -94,22 +84,21 @@ class Maqueen:
 
         patrol = self.get_pratol()
 
-        if patrol == "left":
-            self.set_motor(motor="left", speed=20)
-        elif patrol == "right":
-            self.set_motor(motor="right", speed=20)
-        elif patrol == "none":
+        if patrol == 'left':
+            self.set_motor(motor='left', speed=20)
+        elif patrol == 'right':
+            self.set_motor(motor='right', speed=20)
+        elif patrol == 'none':
             self.set_motor()
 
 
 class Radio:
-    """Handle the radio communications with some log prints.
-    """
+    """Handle the radio communications with some log prints."""
 
-    def __init__(self, channel: int,  power: int = 7):
+    def __init__(self, channel: int, power: int = 7):
         config(channel=channel, power=power)
         on()
-        print("Radio: Config radio on channel {} and power {}".format(channel, power))
+        print('Radio: Config radio on channel {} and power {}'.format(channel, power))
 
     def send(self, message: str):
         """Send a string threw Bluetooth.
@@ -121,7 +110,7 @@ class Radio:
         """
 
         send(message)
-        print("Radio: Send message {}".format(message))
+        print('Radio: Send message {}'.format(message))
 
     def receive(self) -> str:
         """Return strings that habe been receive threw Bluetooth.
@@ -133,5 +122,5 @@ class Radio:
         """
 
         message = receive()
-        print("Radio: Recieve {}".format(message))
+        print('Radio: Recieve {}'.format(message))
         return message
