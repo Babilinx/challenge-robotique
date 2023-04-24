@@ -33,7 +33,7 @@ class Radio:
     def __init__(self, channel: int, power: int = 7):
         config(channel=channel, power=power)
         on()
-        print("Radio: Config radio on channel {} and power {}".format(channel, power))
+        print('Radio: Config radio on channel {} and power {}'.format(channel, power))
 
     def send(self, message: str):
         """Send a string threw Bluetooth.
@@ -45,7 +45,7 @@ class Radio:
         """
 
         send(message)
-        print("Radio: Send message {}".format(message))
+        print('Radio: Send message {}'.format(message))
 
     def receive(self) -> str:
         """Return strings that habe been receive threw Bluetooth.
@@ -57,5 +57,5 @@ class Radio:
         """
 
         message = receive()
-        print("Radio: Recieve {}".format(message))
+        print('Radio: Recieve {}'.format(message))
         return message
