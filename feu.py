@@ -26,6 +26,18 @@ class Led:
         pin1.write_analog(green * 4)
         pin2.write_analog(blue * 4)
 
+    def green(self):
+        self.rgb(0, 0, 0)
+        self.rgb(0, 255, 0)
+
+    def orange(self):
+        self.rgb(0, 0, 0)
+        self.rgb(255, 60, 0)
+
+    def red(self):
+        self.rgb(0, 0, 0)
+        self.rgb(255, 0, 0)
+
 
 class Radio:
     """Handle the radio communications with some log prints."""
