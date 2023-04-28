@@ -1,4 +1,5 @@
-from microbit import pin0, pin1, pin2
+from microbit import pin0, pin1, pin2, sleep
+from machine import time_pulse_us
 
 from radio import config, send, receive, on
 
@@ -71,3 +72,44 @@ class Radio:
         message = receive()
         print('Radio: Recieve {}'.format(message))
         return message
+
+
+class Sensor:
+    """Handle sensors
+    """
+
+    def get_distance(self) -> float:
+        """Get the distance with the ultrasonic sensor
+
+        Returns:
+            float: Distance in centimeters
+
+        Status: Working
+        """
+
+        # Send a sound wave
+        pin1.write_digital(1)
+        sleep(10)
+        pin1.write_digital(0)
+
+        pin2.read_digital()
+        time = time_pulse_us(pin2, 1)
+
+        distance = 340 * time / 20000
+
+        return distance
+
+    def get_presence(self) -> bool:
+        """Get the status of the IR proximity sensor.
+
+        Returns:
+            bool: Something detected, or not
+        
+        Status: In development
+        """
+
+        # Do something
+
+        is_presence = True
+
+        return is_presence
