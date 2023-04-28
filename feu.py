@@ -18,8 +18,8 @@ class Led:
         # RGB LED scheme
         #       _______
         #       | | | |
-        #       R | | B
-        #         | G
+        #       G | | B
+        #         | R
         #        GND
 
         pin0.write_analog(red * 4)
