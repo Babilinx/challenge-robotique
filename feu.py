@@ -42,10 +42,10 @@ class Led:
 class Radio:
     """Handle the radio communications with some log prints."""
 
-    def __init__(self, channel: int, power: int = 7):
-        config(channel=channel, power=power)
+    def __init__(self, power: int = 7):
+        config(channel=6, power=power)
         on()
-        print('Radio: Config radio on channel {} and power {}'.format(channel, power))
+        print('Radio: Config radio on channel {} and power {}'.format('6', power))
 
     def send(self, message: str):
         """Send a string threw Bluetooth.
