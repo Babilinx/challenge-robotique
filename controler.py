@@ -1,4 +1,4 @@
-from microbit import pin1, pin2, pin15
+from microbit import pin1, pin2, pin15, button_b
 
 
 class Controler:
@@ -17,3 +17,9 @@ class Controler:
             return int((value - 525) / (29 / 15))
         if value < 525:
             return int((493 - value) / (29 / 15))
+
+    def get_red_button(self) -> bool:
+        return pin15.read_digital()
+
+    def get_button_B(self) -> bool:
+        return button_b.is_pressed()
