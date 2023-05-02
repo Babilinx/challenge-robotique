@@ -30,6 +30,24 @@ class Maqueen:
             i2c.write(0x10, bytearray([0x00, sens, speed]))
             i2c.write(0x10, bytearray([0x02, sens, speed]))
 
+    def turn(self, sens: str, motor_speed: int, percentage: int):
+        """Make Maqueen turn
+
+        Args:
+            sens (str): Select the way to turn.
+            motor_speed (int): Set the motor speed.
+            percentage (float): Percentage of the opposite motor.
+        """
+
+        if sens == 'left':
+            self.set_motor(motor='left', speed=motor_speed)
+            self.set_motor(motor='right', speed=int(motor_speed*percentage))
+
+        if sens == 'right':
+            self.set_motor(motor='right', speed=motor_speed)
+            self.set_motor(motor='left', speed=int(motor_speed*percentage))
+
+
     def get_distance(self) -> float:
         """Get the distance with the ultrasonic sensor
 
