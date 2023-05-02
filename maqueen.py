@@ -6,21 +6,21 @@ from radio import config, send, receive, on
 class Maqueen:
     """Maqueen class for using Maqueen robot"""
 
-    def set_motor(self, motor: str = 'all', speed: int = 255, foward: bool = True):
+    def set_motor(self, motor: str = 'all', speed: int = 255):
         """Handle motors usage.
 
         Args:
             motor (str, optional): Select the motor to use. Defaults to "all".
             speed (int, optional): Select the speed of the choosen motor (between 0 and 255). Defaults to 255.
-            foward (bool, optional): Select the way that the motos should spin. False to backward. Defaults to True.
 
         Status: Working
         """
 
-        if foward:
+        if speed >= 0:
             sens = 0x0
         else:
             sens = 0x1
+            speed = -1*speed
 
         if motor == 'left':
             i2c.write(0x10, bytearray([0x00, sens, speed]))
