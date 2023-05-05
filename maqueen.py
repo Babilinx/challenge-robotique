@@ -6,7 +6,7 @@ from radio import config, send, receive, on
 class Maqueen:
     """Maqueen class for using Maqueen robot"""
 
-    def set_motor(self, motor: str = 'all', speed: int = 255):
+    def set_motor(self, motor: str = "all", speed: int = 255):
         """Handle motors usage.
 
         Args:
@@ -20,33 +20,15 @@ class Maqueen:
             sens = 0x0
         else:
             sens = 0x1
-            speed = -1*speed
+            speed = -1 * speed
 
-        if motor == 'left':
+        if motor == "left":
             i2c.write(0x10, bytearray([0x00, sens, speed]))
-        elif motor == 'right':
+        elif motor == "right":
             i2c.write(0x10, bytearray([0x02, sens, speed]))
-        elif motor == 'all':
+        elif motor == "all":
             i2c.write(0x10, bytearray([0x00, sens, speed]))
             i2c.write(0x10, bytearray([0x02, sens, speed]))
-
-    def turn(self, sens: str, motor_speed: int, opposite_motor_speed: int):
-        """Make Maqueen turn
-
-        Args:
-            sens (str): Select the way to turn.
-            motor_speed (int): Set the motor speed.
-            opposite_motor_speed (int): Set the speed of the opposite motor.
-        """
-
-        if sens == 'left':
-            self.set_motor(motor='left', speed=motor_speed)
-            self.set_motor(motor='right', speed=opposite_motor_speed)
-
-        if sens == 'right':
-            self.set_motor(motor='right', speed=motor_speed)
-            self.set_motor(motor='left', speed=opposite_motor_speed)
-
 
     def get_distance(self) -> float:
         """Get the distance with the ultrasonic sensor
@@ -79,11 +61,11 @@ class Maqueen:
         """
 
         if pin13.read_digital():
-            return 'left'
+            return "left"
         elif pin14.read_digital():
-            return 'right'
+            return "right"
         else:
-            return 'none'
+            return "none"
 
     def stop(self):
         """Stop all of the motors.
@@ -102,11 +84,11 @@ class Maqueen:
 
         patrol = self.get_pratol()
 
-        if patrol == 'left':
-            self.set_motor(motor='left', speed=20)
-        elif patrol == 'right':
-            self.set_motor(motor='right', speed=20)
-        elif patrol == 'none':
+        if patrol == "left":
+            self.set_motor(motor="left", speed=20)
+        elif patrol == "right":
+            self.set_motor(motor="right", speed=20)
+        elif patrol == "none":
             self.set_motor()
 
 
@@ -116,7 +98,7 @@ class Radio:
     def __init__(self, channel: int, power: int = 7):
         config(channel=channel, power=power)
         on()
-        print('Radio: Config radio on channel {} and power {}'.format(channel, power))
+        print("Radio: Config radio on channel {} and power {}".format(channel, power))
 
     def send(self, message: str):
         """Send a string threw Bluetooth.
@@ -128,7 +110,7 @@ class Radio:
         """
 
         send(message)
-        print('Radio: Send message {}'.format(message))
+        print("Radio: Send message {}".format(message))
 
     def receive(self) -> str:
         """Return strings that habe been receive threw Bluetooth.
@@ -140,5 +122,5 @@ class Radio:
         """
 
         message = receive()
-        print('Radio: Recieve {}'.format(message))
+        print("Radio: Recieve {}".format(message))
         return message
