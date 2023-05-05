@@ -124,3 +124,51 @@ class Radio:
         message = receive()
         print("Radio: Recieve {}".format(message))
         return message
+
+
+def main():
+    while True:
+        message = Radio.receive()
+        if message:
+            message_type, message_value = message.split(':')
+            if message_type == 'Controller.joystick':
+                value_x, value_y = (value for value in message_value.split('|'))
+                value_x, value_y = int(value_x), int(value_y)
+
+                if value_x > 0:
+                    if value_y > 0:
+                        Maqueen.set_motor(motor='left', speed=value_y)
+                        Maqueen.set_motor(motor='right', speed=0)
+                    elif value_y < 0:
+                        Maqueen.set_motor(motor='right', speed=-value_y)
+                        Maqueen.set_motor(motor='left', speed=0)
+                    else:
+                        Maqueen.set_motor(speed=value_x)
+
+                elif value_x < 0:
+                    if value_y > 0:
+                        Maqueen.set_motor(motor='right', speed=-value_y)
+                        Maqueen.set_motor(motor='left', speed=0)
+                    elif value_y < 0:
+                        Maqueen.set_motor(motor='left', speed=value_y)
+                        Maqueen.set_motor(motor='right', speed=0)
+                    else:
+                        Maqueen.set_motor(speed=value_x)
+
+                elif not value_x and value_y:
+                    if value_y > 0:
+                        Maqueen.set_motor(motor='right', speed=-value_y)
+                        Maqueen.set_motor(motor='left', speed=-value_y)
+                    elif value_y < 0:
+                        Maqueen.set_motor(motor='left', speed=value_y)
+                        Maqueen.set_motor(motor='right', speed=value_y)
+
+                elif not value_x and not value_y:
+                    Maqueen.stop()
+
+
+if __name__ == '__main__':
+    Radio = Radio(channel=6)
+    Maqueen = Maqueen()
+
+    main()
