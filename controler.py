@@ -72,12 +72,19 @@ def main():
         button_b = Controler.get_button_B()
         red_button = Controler.get_red_button()
 
+        if joystick_x <= 10 and joystick_x >= -10: joystick_x = 0
+        if joystick_y <= 10 and joystick_y >= -10: joystick_y = 0
+        if joystick_x > 255: joystick_x = 255
+        if joystick_x < -255: joystick_x = -255
+        if joystick_y > 255: joystick_y = 255
+        if joystick_y < -254: joystick_y = -255
+
         # Send Data to Maqueen
         Radio.send("Controller.joystick:{}|{}".format(joystick_x, joystick_y))
-        Radio.send("Controller.button_b:{}".format(button_b))
-        Radio.send("Controller.red_button:{}".format(red_button))
+        #Radio.send("Controller.button_b:{}".format(button_b))
+        #Radio.send("Controller.red_button:{}".format(red_button))
 
-        sleep(1 / 60)
+        sleep(1 / 30)
 
 
 if __name__ == "__main__":
