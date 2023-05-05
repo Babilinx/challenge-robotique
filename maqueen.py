@@ -127,6 +127,8 @@ class Radio:
 
 
 def main():
+    auto_mode = False
+
     while True:
         message = Radio.receive()
         if message:
@@ -166,6 +168,10 @@ def main():
                 elif not value_x and not value_y:
                     Maqueen.stop()
 
+            if message_type == 'Controller.button_b':
+                if message_value == 'True':
+                    auto_mode = True
+        
 
 if __name__ == '__main__':
     Radio = Radio(channel=6)
