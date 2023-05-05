@@ -157,11 +157,11 @@ def main():
 
                 elif not value_x and value_y:
                     if value_y > 0:
-                        Maqueen.set_motor(motor='right', speed=-value_y)
-                        Maqueen.set_motor(motor='left', speed=-value_y)
-                    elif value_y < 0:
                         Maqueen.set_motor(motor='left', speed=value_y)
-                        Maqueen.set_motor(motor='right', speed=value_y)
+                        Maqueen.set_motor(motor='right', speed=-value_y)
+                    elif value_y < 0:
+                        Maqueen.set_motor(motor='right', speed=-value_y)
+                        Maqueen.set_motor(motor='left', speed=value_y)
 
                 elif not value_x and not value_y:
                     Maqueen.stop()
