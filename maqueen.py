@@ -76,21 +76,6 @@ class Maqueen:
         i2c.write(0x10, bytearray([0x02, 0x0, 0]))
         i2c.write(0x10, bytearray([0x00, 0x0, 0]))
 
-    def follow_line(self):
-        """Flollow a black line on white background.
-
-        Status: Working in theory, but don't follow a black line
-        """
-
-        patrol = self.get_pratol()
-
-        if patrol == "left":
-            self.set_motor(motor="left", speed=20)
-        elif patrol == "right":
-            self.set_motor(motor="right", speed=20)
-        elif patrol == "none":
-            self.set_motor()
-
 
 class Radio:
     """Handle the radio communications with some log prints."""
@@ -165,6 +150,21 @@ def joystick_to_mouvement(message_value: str):
         Maqueen.stop()
 
 
+def auto_mode():
+    """Flollow a black line on white background.
+    """
+
+    patrol = Maqueen.get_pratol()
+
+    if patrol == 'left':
+        Maqueen.set_motor(motor='left', speed=20)
+    elif patrol == 'right':
+        Maqueen.set_motor(motor='right', speed=20)
+    elif patrol == 'none':
+        Maqueen.set_motor(motor='all', speed=255)
+
+
+
 def main():
     auto_mode = False
 
@@ -178,6 +178,13 @@ def main():
             if message_type == 'Controller.button_b':
                 if message_value == 'True':
                     auto_mode = True
+                elif message_value == 'False':
+                    auto_mode = False
+                    Maqueen.stop()
+
+            if auto_mode:
+                auto_mode()
+
 
 
 if __name__ == '__main__':
