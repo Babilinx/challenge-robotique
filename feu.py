@@ -1,5 +1,6 @@
 from microbit import pin0, pin1, pin2, sleep
 from machine import time_pulse_us
+import time
 
 from radio import config, send, receive, on
 
@@ -113,3 +114,52 @@ class Sensor:
         is_presence = True
 
         return is_presence
+
+
+def main():
+    green_light_delay_ms = 5000
+    orange_light_delay_ms = 3000
+    red_light_delay_ms = 3000
+
+    current_light = 'red'
+
+    last_ticks = time.ticks_ms()
+
+    while True:
+        if current_light == 'red':
+            if time.diff_ticks(time.ticks_ms, last_ticks) == red_light_delay_ms:
+                Led.green()
+                current_light = 'green'
+                last_ticks = time.ticks_ms()
+
+            if Sensor.get_presence():
+                Radio.send('Trafic.stop:True')
+
+        if current_light == 'green':
+            if Sensor.get_presence():
+                Radio.send('Trafic.stop:False')
+
+            if time.diff_ticks(time.ticks_ms, last_ticks) == green_light_delay_ms:
+                Led.green()
+                current_light = 'orange'
+                last_ticks = time.ticks_ms()
+
+
+        if current_light == 'orange':
+            if Sensor.get_presence():
+                Radio.send('Trafic.stop:True')
+
+            if time.diff_ticks(time.ticks_ms, last_ticks) == orange_light_delay_ms:
+                Led.red()
+                current_light = 'red'
+                last_ticks = time.ticks_ms()
+
+
+
+
+if __name__ == '__main__':
+    Led = Led()
+    Radio = Radio()
+    Sensor = Sensor()
+
+    main()
