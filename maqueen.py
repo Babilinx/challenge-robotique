@@ -151,17 +151,22 @@ def joystick_to_mouvement(message_value: str):
 
 
 def auto_mode():
-    """Flollow a black line on white background.
+    """Follow a black line on white background.
     """
+    if Maqueen.get_distance() < 5.0:
+        Maqueen.stop()
+    
+    else:
 
-    patrol = Maqueen.get_pratol()
+        patrol = Maqueen.get_pratol()
 
-    if patrol == 'left':
-        Maqueen.set_motor(motor='left', speed=20)
-    elif patrol == 'right':
-        Maqueen.set_motor(motor='right', speed=20)
-    elif patrol == 'none':
-        Maqueen.set_motor(motor='all', speed=255)
+        if patrol == 'left':
+            Maqueen.set_motor(motor='left', speed=20)
+        elif patrol == 'right':
+            Maqueen.set_motor(motor='right', speed=20)
+        elif patrol == 'none':
+            Maqueen.set_motor(motor='all', speed=255)
+
 
 
 
