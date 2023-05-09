@@ -1,4 +1,4 @@
-from microbit import pin0, pin1, pin2, sleep
+from microbit import pin0, pin1, pin2, pin3, sleep
 from machine import time_pulse_us
 import time
 
@@ -109,11 +109,10 @@ class Sensor:
         Status: In development
         """
 
-        # Do something
-
-        is_presence = True
-
-        return is_presence
+        if pin3.read_analog() > 800:
+            return True
+        else:
+            return False
 
 
 def main():
