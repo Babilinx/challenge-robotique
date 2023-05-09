@@ -186,9 +186,12 @@ def main():
                 elif message_value == 'False':
                     auto_mode = False
                     Maqueen.stop()
-
-            if auto_mode:
-                auto_mode()
+            
+            if message_type == 'Trafic.stop' and auto_mode:
+                if message_value == 'True':
+                    Maqueen.stop()
+                elif message_value == 'False':
+                    auto_mode()
 
 
 
