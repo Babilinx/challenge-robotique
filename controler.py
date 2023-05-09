@@ -80,7 +80,7 @@ def main():
         if joystick_y < -254: joystick_y = -255
 
         # Send Data to Maqueen
-        Radio.send("Controller.joystick:{}|{}".format(joystick_x, joystick_y))
+        Radio.send("Controller.joystick:{}|{}".format(joystick_y, joystick_x))
         #Radio.send("Controller.button_b:{}".format(button_b))
         #Radio.send("Controller.red_button:{}".format(red_button))
 
