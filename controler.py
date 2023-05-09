@@ -1,5 +1,5 @@
 from microbit import pin1, pin2, pin15, button_b, sleep
-from radio import config, send, receive
+from radio import config, send, receive, on
 
 
 class Controler:
