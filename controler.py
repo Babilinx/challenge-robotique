@@ -81,8 +81,8 @@ def main():
 
         # Send Data to Maqueen
         Radio.send("Controller.joystick:{}|{}".format(joystick_y, joystick_x))
-        #Radio.send("Controller.button_b:{}".format(button_b))
-        #Radio.send("Controller.red_button:{}".format(red_button))
+        Radio.send("Controller.button_b:{}".format(button_b))
+        Radio.send("Controller.red_button:{}".format(red_button))
 
         sleep(1 / 30)
 
