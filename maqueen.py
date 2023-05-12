@@ -155,7 +155,7 @@ def auto_mode():
     """
     if Maqueen.get_distance() < 5.0:
         Maqueen.stop()
-    
+
     else:
 
         patrol = Maqueen.get_pratol()
@@ -177,7 +177,8 @@ def main():
         message = Radio.receive()
         if message:
             message_type, message_value = message.split(':')
-            if message_type == 'Controller.joystick':
+
+            if message_type == 'Controller.joystick' and not auto_mode:
                 joystick_to_mouvement(message_value)
 
             if message_type == 'Controller.button_b':
@@ -186,7 +187,7 @@ def main():
                 elif message_value == 'False':
                     auto_mode = False
                     Maqueen.stop()
-            
+
             if message_type == 'Trafic.stop' and auto_mode:
                 if message_value == 'True':
                     Maqueen.stop()
