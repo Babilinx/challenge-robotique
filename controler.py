@@ -1,4 +1,4 @@
-from microbit import pin1, pin2, pin15, button_b, sleep
+from microbit import pin1, pin2, pin15, button_b, sleep, display, Image
 from radio import config, send, receive, on
 
 
@@ -24,6 +24,17 @@ class Controler:
 
     def get_button_B(self) -> bool:
         return button_b.is_pressed()
+    
+    def show_auto_mode(self, status):
+        if status == 'True':
+            display.show(Image('00000:'
+                               '00000:'
+                               '00009:'
+                               '00000:'
+                               '00000:'))
+
+        if status == 'False':
+            display.clear()
 
 
 class Radio:
@@ -61,6 +72,8 @@ class Radio:
 
 
 def main():
+    button_b_status = 'False'
+
     while True:
         # Get data
         analog_joystick_x = Controler.get_analog_joystick_x()
@@ -78,6 +91,16 @@ def main():
         if joystick_x < -255: joystick_x = -255
         if joystick_y > 255: joystick_y = 255
         if joystick_y < -254: joystick_y = -255
+
+        # Toggle for button B
+        if button_b and button_b_status == 'False':
+            button_b_status = 'True'
+            sleep(200)
+        elif button_b and button_b_status == 'True':
+            button_b_status = 'False'
+            sleep(200)
+        
+        Controler.show_auto_mode(button_b_status)
 
         # Send Data to Maqueen
         Radio.send("Controller.joystick:{}|{}".format(joystick_y, joystick_x))
