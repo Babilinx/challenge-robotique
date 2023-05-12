@@ -60,9 +60,9 @@ class Maqueen:
         Status: Working
         """
 
-        if pin13.read_digital():
+        if not pin13.read_digital():
             return "left"
-        elif pin14.read_digital():
+        elif not pin14.read_digital():
             return "right"
         else:
             return "none"
@@ -119,30 +119,30 @@ def joystick_to_mouvement(message_value: str):
     value_x, value_y = int(value_x), int(value_y)
 
     if value_x > 0:
-        if value_y > 0:
+        if value_y > 10:
             Maqueen.set_motor(motor='left', speed=value_y)
             Maqueen.set_motor(motor='right', speed=0)
-        elif value_y < 0:
+        elif value_y < -10:
             Maqueen.set_motor(motor='right', speed=-value_y)
             Maqueen.set_motor(motor='left', speed=0)
         else:
             Maqueen.set_motor(speed=value_x)
 
     elif value_x < 0:
-        if value_y > 0:
+        if value_y > 10:
             Maqueen.set_motor(motor='right', speed=-value_y)
             Maqueen.set_motor(motor='left', speed=0)
-        elif value_y < 0:
+        elif value_y < -10:
             Maqueen.set_motor(motor='left', speed=value_y)
             Maqueen.set_motor(motor='right', speed=0)
         else:
             Maqueen.set_motor(speed=value_x)
 
     elif not value_x and value_y:
-        if value_y > 0:
+        if value_y > 10:
             Maqueen.set_motor(motor='left', speed=value_y)
             Maqueen.set_motor(motor='right', speed=-value_y)
-        elif value_y < 0:
+        elif value_y < -10:
             Maqueen.set_motor(motor='right', speed=-value_y)
             Maqueen.set_motor(motor='left', speed=value_y)
 
@@ -150,7 +150,7 @@ def joystick_to_mouvement(message_value: str):
         Maqueen.stop()
 
 
-def auto_mode():
+def f_auto_mode():
     """Follow a black line on white background.
     """
     if Maqueen.get_distance() < 5.0:
@@ -166,8 +166,6 @@ def auto_mode():
             Maqueen.set_motor(motor='right', speed=20)
         elif patrol == 'none':
             Maqueen.set_motor(motor='all', speed=255)
-
-
 
 
 def main():
@@ -186,13 +184,15 @@ def main():
                     auto_mode = True
                 elif message_value == 'False':
                     auto_mode = False
-                    Maqueen.stop()
 
             if message_type == 'Trafic.stop' and auto_mode:
                 if message_value == 'True':
                     Maqueen.stop()
-                elif message_value == 'False':
-                    auto_mode()
+                else:
+                    f_auto_mode()
+
+        if auto_mode:
+            f_auto_mode()
 
 
 
