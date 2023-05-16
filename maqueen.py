@@ -166,13 +166,13 @@ def f_auto_mode():
         patrol = Maqueen.get_pratol()
 
         if patrol == 'left':
-            Maqueen.set_motor(motor='left', speed=20)
-            Maqueen.set_motor(motor='right', speed=255)
+            Maqueen.set_motor(motor='left', speed=30)
+            Maqueen.set_motor(motor='right', speed=160)
         elif patrol == 'right':
             Maqueen.set_motor(motor='right', speed=20)
-            Maqueen.set_motor(motor='left', speed=255)
+            Maqueen.set_motor(motor='left', speed=160)
         elif patrol == 'none':
-            Maqueen.set_motor(motor='all', speed=255)
+            Maqueen.set_motor(motor='all', speed=160)
 
 
 def main():
