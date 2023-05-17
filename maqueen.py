@@ -70,7 +70,7 @@ class Maqueen:
     def stop(self):
         """Stop all of the motors.
 
-        Status: Not tested
+        Status: Working
         """
 
         i2c.write(0x10, bytearray([0x02, 0x0, 0]))
@@ -91,7 +91,7 @@ class Radio:
         Args:
             message (str): Message to send.
 
-        Status: Not tested
+        Status: Working
         """
 
         send(message)
@@ -103,7 +103,7 @@ class Radio:
         Returns:
             str: Received message.
 
-        Status: Not tested
+        Status: Working
         """
 
         message = receive()
