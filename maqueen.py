@@ -85,18 +85,6 @@ class Radio:
         on()
         print("Radio: Config radio on channel {} and power {}".format(channel, power))
 
-    def send(self, message: str):
-        """Send a string threw Bluetooth.
-
-        Args:
-            message (str): Message to send.
-
-        Status: Working
-        """
-
-        send(message)
-        print("Radio: Send message {}".format(message))
-
     def receive(self) -> str:
         """Return strings that habe been receive threw Bluetooth.
 
