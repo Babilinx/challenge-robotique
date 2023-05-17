@@ -24,7 +24,7 @@ class Controler:
 
     def get_button_B(self) -> bool:
         return button_b.is_pressed()
-    
+
     def show_auto_mode(self, status):
         if status == 'True':
             display.show(Image('00000:'
@@ -99,7 +99,7 @@ def main():
         elif button_b and button_b_status == 'True':
             button_b_status = 'False'
             sleep(200)
-        
+
         Controler.show_auto_mode(button_b_status)
 
         # Send Data to Maqueen
