@@ -83,7 +83,7 @@ class Radio:
     def __init__(self, channel: int, power: int = 7):
         config(channel=channel, power=power)
         on()
-        print("Radio: Config radio on channel {} and power {}".format(channel, power))
+        print('Radio: Config radio on channel {} and power {}'.format(channel, power))
 
     def receive(self) -> str:
         """Return strings that habe been receive threw Bluetooth.
@@ -95,7 +95,7 @@ class Radio:
         """
 
         message = receive()
-        print("Radio: Recieve {}".format(message))
+        print('Radio: Recieve {}'.format(message))
         return message
 
 
@@ -142,6 +142,7 @@ def f_auto_mode():
     stopped = False
     """Follow a black line on white background.
     """
+
     if Maqueen.get_distance() < 5.0:
         Maqueen.stop()
         stopped = not stopped
