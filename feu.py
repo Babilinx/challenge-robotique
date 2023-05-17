@@ -55,19 +55,19 @@ class Radio:
         Args:
             message (str): Message to send.
 
-        Status: Not tested
+        Status: Working
         """
 
         send(message)
         print('Radio: Send message {}'.format(message))
 
     def receive(self) -> str:
-        """Return strings that habe been receive threw Bluetooth.
+        """Return strings that have been receive threw Bluetooth.
 
         Returns:
             str: Received message.
 
-        Status: Not tested
+        Status: Working
         """
 
         message = receive()
@@ -106,7 +106,7 @@ class Sensor:
         Returns:
             bool: Something detected, or not
         
-        Status: In development
+        Status: In testing
         """
 
         if pin3.read_analog() > 800:
